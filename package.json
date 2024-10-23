@@ -1,0 +1,17 @@
+{
+  "name": "linkedin-message-sender",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@googleapis/sheets": "^9.3.1",
+    "fs-extra": "^11.2.0",
+    "playwright": "^1.48.1"
+  }
+}
