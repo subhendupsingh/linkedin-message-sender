@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: Define repository URL - replace with your repository URL
-set "REPO_URL=https://github.com/username/repository.git"
+set "REPO_URL=https://github.com/subhendupsingh/linkedin-message-sender.git"
 set "REPO_FOLDER=repository"
 
 echo Checking for Git installation...

@@ -2,9 +2,11 @@ const { chromium } = require('playwright');
 const fs = require('fs-extra');
 const { google } = require('@googleapis/sheets');
 
-const sendMessagesToNewConnectionsOnly = false;
-const sendMessagesToOldConnectionsOnly = true;
 let allConnections = [];
+
+// Enter your linkedin credentials, this will not be stored anywhere, this will stay on your system.
+const linkedInEmail = "";
+const linkedInPassword = "";
 
 // File to store contacted connections
 const CONTACTED_FILE = 'contacted_connections.json';
@@ -252,8 +254,8 @@ async function getConnections(page) {
 
     // Navigate to LinkedIn and log in
     await page.goto('https://www.linkedin.com/login');
-    await page.fill('input[name="session_key"]', 'sps.1431990@gmail.com'); // Replace with your email
-    await page.fill('input[name="session_password"]', 'Subhendu@14'); // Replace with your password
+    await page.fill('input[name="session_key"]', linkedInEmail); // Replace with your email
+    await page.fill('input[name="session_password"]', linkedInPassword); // Replace with your password
     await page.click('button[type="submit"]');
     await page.waitForNavigation({timeout: 100*1000});
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Repository settings - replace with your repository URL
-REPO_URL="https://github.com/username/repository.git"
+REPO_URL="https://github.com/subhendupsingh/linkedin-message-sender.git"
 REPO_FOLDER="repository"
 
 # Function to check if a command exists
