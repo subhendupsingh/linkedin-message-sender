@@ -5,8 +5,11 @@ const { google } = require('@googleapis/sheets');
 let allConnections = [];
 
 // Enter your linkedin credentials, this will not be stored anywhere, this will stay on your system.
-const linkedInEmail = "";
-const linkedInPassword = "";
+const linkedInEmail = "sps.1431990@gmail.com";
+const linkedInPassword = "Subhendu@14";
+
+// add name of people you don't want to contact on LinkedIn
+const blockList = ["firstname lastname"];
 
 // File to store contacted connections
 const CONTACTED_FILE = 'contacted_connections.json';
@@ -132,6 +135,9 @@ async function closeMessageWindow(page) {
 async function sendMessageToNewConnections(page, connection) {
     const greeting = await getGreeting(connection);
     const messageInput = await page.$('div[contenteditable="true"]');
+    if (!messageInput) {
+        throw new Error('Message window is not open');
+    }
     const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\nI will notify you on the launch day, most probably on Nov 7. It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
@@ -141,6 +147,9 @@ async function sendMessageToOldConnections(page, connection) {
     const greeting = await getGreeting(connection);
     //console.log(greeting);
     const messageInput = await page.$('div[contenteditable="true"]');
+    if (!messageInput) {
+        throw new Error('Message window is not open');
+    }
     const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\nI will notify you on the launch day, most probably on Nov 7. It would mean a lot to me.\n\nP.S. If you don't have an account on Product Hunt, I request you to please create one.\n\nThanks in advance :)`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
@@ -170,13 +179,28 @@ const filterAlreadycontactedConnections = async (connections) => {
         const connection = connections[index];
         const personNameElement = await connection.$('span.mn-connection-card__name');
         const personName = personNameElement ? await personNameElement.innerText() : '';
-        console.log("personName", personName);
+        //console.log("personName", personName);
         if (!contacted[personName]) {
             filteredConnections.push(connection);
         }
     }
 
     console.log(`Total uncontacted connections: ${filteredConnections.length}`);
+    return filteredConnections;
+}
+
+const filterBlocklistConnections = async (connections) => {
+    console.log('Filtering blocklist connections');
+    const filteredConnections = [];
+    for (let index = 0; index < connections.length; index++) {
+        const connection = connections[index];
+        const personNameElement = await connection.$('span.mn-connection-card__name');
+        const personName = personNameElement ? await personNameElement.innerText() : '';
+        if (!blocklist.includes(personName)) {
+            filteredConnections.push(connection);
+        }
+    }
+    console.log(`Total filtered connections: ${filteredConnections.length}`);
     return filteredConnections;
 }
 
@@ -199,11 +223,15 @@ async function processConnection(connection, page) {
    const hasShootmail = await doPreviousMessagesContainShootmail(page);
    console.log(`Connection type: ${type}`);
    if(!hasShootmail){
-        if(type === "new"){
-            await sendMessageToNewConnections(page, connection);
-        } else if(type === "old"){
-            await sendMessageToOldConnections(page, connection);
-        }
+       try {
+            if(type === "new"){
+                await sendMessageToNewConnections(page, connection);
+            } else if(type === "old"){
+                await sendMessageToOldConnections(page, connection);
+            }
+       } catch (error) {
+          console.log(error);
+       }
         await saveContactedConnection(personName, "Invite Sent");
     }else{
         console.log("Message already sent to this connection, skipping....");
@@ -216,7 +244,7 @@ async function processConnection(connection, page) {
    await closeMessageWindow(page);
 }
 
-async function processConnections(connections, page) {
+async function processConnections(connections, page, browser) {
 
     // Load contacted connections first
     //const contacted = await loadContactedConnections();
@@ -225,7 +253,10 @@ async function processConnections(connections, page) {
         //const oldConnections = await filterOldConnections();
 
         // Filter out already contacted connections
-        const uncontactedConnections = await filterAlreadycontactedConnections(allConnections);
+        let uncontactedConnections = await filterAlreadycontactedConnections(allConnections);
+
+        // Filter out blocklist connections
+        uncontactedConnections = await filterBlocklistConnections(uncontactedConnections);
 
         console.log(`Found ${uncontactedConnections.length} uncontacted old connections to process`);
 
@@ -306,5 +337,5 @@ async function getConnections(page) {
     }
 
     console.log(`Total connections found: ${allConnections.length}, processing now...`);
-    await processConnections(allConnections, page);
+    await processConnections(allConnections, page, browser);
 })();
