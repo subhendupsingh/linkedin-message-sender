@@ -196,7 +196,7 @@ const filterBlocklistConnections = async (connections) => {
         const connection = connections[index];
         const personNameElement = await connection.$('span.mn-connection-card__name');
         const personName = personNameElement ? await personNameElement.innerText() : '';
-        if (!blocklist.includes(personName)) {
+        if (!blockList.includes(personName)) {
             filteredConnections.push(connection);
         }
     }
