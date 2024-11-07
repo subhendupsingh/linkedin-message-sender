@@ -5,8 +5,8 @@ const { google } = require('@googleapis/sheets');
 let allConnections = [];
 
 // Enter your linkedin credentials, this will not be stored anywhere, this will stay on your system.
-const linkedInEmail = "sps.1431990@gmail.com";
-const linkedInPassword = "Subhendu@14";
+const linkedInEmail = "";
+const linkedInPassword = "";
 
 // add name of people you don't want to contact on LinkedIn
 const blockList = ["firstname lastname"];
@@ -138,8 +138,8 @@ async function sendMessageToNewConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
-    //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\nI will notify you on the launch day, most probably on Nov 7. It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
-    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    //const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
@@ -151,8 +151,8 @@ async function sendMessageToOldConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
-    //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\nI will notify you on the launch day, most probably on Nov 7. It would mean a lot to me.\n\nP.S. If you don't have an account on Product Hunt, I request you to please create one.\n\nThanks in advance :)`;
-    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    //const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
