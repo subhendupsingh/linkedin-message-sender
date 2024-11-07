@@ -138,8 +138,8 @@ async function sendMessageToNewConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
-    const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
-    //const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
@@ -151,8 +151,8 @@ async function sendMessageToOldConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
-    const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
-    //const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
