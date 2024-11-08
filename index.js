@@ -5,8 +5,8 @@ const { google } = require('@googleapis/sheets');
 let allConnections = [];
 
 // Enter your linkedin credentials, this will not be stored anywhere, this will stay on your system.
-const linkedInEmail = "";
-const linkedInPassword = "";
+const linkedInEmail = "sps.1431990@gmail.com";
+const linkedInPassword = "Subhendu@14";
 
 // add name of people you don't want to contact on LinkedIn
 const blockList = ["firstname lastname"];
@@ -139,7 +139,7 @@ async function sendMessageToNewConnections(page, connection) {
         throw new Error('Message window is not open');
     }
     //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
-    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/posts/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
@@ -152,7 +152,7 @@ async function sendMessageToOldConnections(page, connection) {
         throw new Error('Message window is not open');
     }
     //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
-    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/products/shootmail\n\nThanks! Would love to support you in future too 🙏`;
+    const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/posts/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
 }
@@ -224,7 +224,7 @@ async function processConnection(connection, page) {
    // Check previous messages
    const hasShootmail = await doPreviousMessagesContainShootmail(page);
    console.log(`Connection type: ${type}`);
-   if(!hasShootmail){
+   /* if(!hasShootmail){ */
        try {
             if(type === "new"){
                 await sendMessageToNewConnections(page, connection);
@@ -235,10 +235,10 @@ async function processConnection(connection, page) {
           console.log(error);
        }
         await saveContactedConnection(personName, "Invite Sent");
-    }else{
+    /* }else{
         console.log("Message already sent to this connection, skipping....");
         await saveContactedConnection(personName, "Already Contacted");
-    }
+    } */
 
     await page.waitForTimeout(5000); // wait to send the message
     // Close the message window
