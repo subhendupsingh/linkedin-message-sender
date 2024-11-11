@@ -5,15 +5,14 @@ const { google } = require('@googleapis/sheets');
 let allConnections = [];
 
 // Enter your linkedin credentials, this will not be stored anywhere, this will stay on your system.
-const linkedInEmail = "sps.1431990@gmail.com";
-const linkedInPassword = "Subhendu@14";
+const linkedInEmail = "";
+const linkedInPassword = "";
 
 // add name of people you don't want to contact on LinkedIn
 const blockList = ["firstname lastname"];
 
 // File to store contacted connections
 const CONTACTED_FILE = 'contacted_connections.json';
-const SPREADSHEET_ID = '11GaB_shWlLdFgwPzk07Shus_xAS2EicZiAIpT5HkFls'; // Add your Google Sheet ID here
 
 // Initialize Google Sheets API
 //const sheets = google.sheets('v4');
@@ -138,7 +137,10 @@ async function sendMessageToNewConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
+    /** Notify me about the launch */
     //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    
+    /** Launch day message */
     const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/posts/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
@@ -151,7 +153,11 @@ async function sendMessageToOldConnections(page, connection) {
     if (!messageInput) {
         throw new Error('Message window is not open');
     }
+
+    /** Notify me about the launch */
     //const message = `${greeting}\n\nHope you are doing good! I am launching on Product Hunt for the first time. I need your support to make it to the top 5.\n\nYou can subscribe to the launch notification here: https://www.producthunt.com/products/shootmail\n\n. It's launching tomorrow (08-Nov). It would mean a lot to me.\n\nThanks in advance, would love to support you in any way. :)`;
+    
+    /** Launch day message */
     const message = `${greeting}\n\nI've just launched on Product Hunt! 🚀 This is my first ever launch. Would love your vote: https://www.producthunt.com/posts/shootmail\n\nThanks! Would love to support you in future too 🙏`;
     await messageInput.fill(message);
     await page.click('button[type="submit"]'); // Click the send button
